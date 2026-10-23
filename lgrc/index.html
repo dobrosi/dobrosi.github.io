@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart LG TV Remote - Chrome Extension</title>
+    <title>Smart LG TV Remote Controller - Chrome Extension</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,8 +12,9 @@
             --text-muted: #94a3b8;
             --accent: #ef4444; 
             --accent-hover: #dc2626;
-            --premium: #8b5cf6; /* Lila prémium szín */
-            --premium-hover: #7c3aed;
+            --premium: #ffc107; /* Updated Premium Gold */
+            --premium-hover: #e0a800;
+            --premium-text: #1a1a1a; /* Dark text for contrast on gold background */
             --card-bg: #1e293b;
         }
 
@@ -51,8 +52,8 @@
         }
 
         .lg-logo {
-            height: 40px;
-            filter: brightness(0) invert(1); /* Fehérré teszi a logót sötét módban */
+            width: 45px;
+            height: 45px;
         }
 
         h1 {
@@ -74,17 +75,26 @@
         .badges {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            flex-wrap: wrap;
+            gap: 15px; /* Added proper spacing between badges */
             margin-bottom: 40px;
         }
 
         .badge {
             background-color: rgba(255, 255, 255, 0.1);
-            padding: 6px 12px;
+            padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
             color: var(--text-muted);
+        }
+
+        /* Fixed Button Spacing */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -159,7 +169,7 @@
             padding: 35px 25px;
             border-radius: 16px;
             position: relative;
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.15);
+            box-shadow: 0 10px 30px rgba(255, 193, 7, 0.15);
         }
 
         .premium-badge {
@@ -168,7 +178,7 @@
             left: 50%;
             transform: translateX(-50%);
             background-color: var(--premium);
-            color: white;
+            color: var(--premium-text);
             padding: 5px 20px;
             border-radius: 20px;
             font-weight: 800;
@@ -192,7 +202,7 @@
         .premium-features li {
             margin-bottom: 15px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
             color: #e2e8f0;
         }
@@ -202,17 +212,18 @@
             color: var(--premium);
             font-weight: bold;
             font-size: 1.2rem;
+            line-height: 1;
         }
 
         .btn-premium {
             display: block;
             text-align: center;
             background-color: var(--premium);
-            color: white;
+            color: var(--premium-text);
             padding: 15px;
             border-radius: 8px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             transition: background 0.3s;
         }
 
@@ -275,89 +286,96 @@
 
     <header class="container">
         <div class="logo-container">
-            <!-- Nyilvános URL az LG logóhoz, automatikusan fehérre van filterezve a CSS-ben -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/LG_logo_%282015%29.svg" alt="LG Logo" class="lg-logo">
+            <!-- Inline SVG LG Logo (No external dependencies) -->
+            <svg class="lg-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="50" fill="#f8fafc"/>
+                <path d="M50,22 C34.5,22 22,34.5 22,50 C22,65.5 34.5,78 50,78 C61,78 70.8,71.5 74.8,61.8 L62.5,61.8 C59.8,65.8 55.2,68.5 50,68.5 C39.8,68.5 31.5,60.2 31.5,50 C31.5,39.8 39.8,31.5 50,31.5 C56.5,31.5 62.2,35 65.5,40 L74,33 C68.8,26.2 60,22 50,22 Z" fill="#0f172a"/>
+                <polygon points="37,33 46,33 46,60 56,60 56,68 37,68" fill="#0f172a"/>
+                <circle cx="28" cy="42" r="5.5" fill="#0f172a"/>
+            </svg>
             <span style="font-size: 1.5rem; font-weight: 300; color: #94a3b8;">| Smart Remote</span>
         </div>
         
-        <h1>Vezéreld a tévédet a böngészőből</h1>
-        <p class="subtitle">Legyen szó vadonatúj webOS vagy régebbi Netcast rendszerről, ez a bővítmény minden LG okostévével kompatibilis. Nincs szükség extra hardverre.</p>
+        <h1>Smart LG TV Remote Controller</h1>
+        <p class="subtitle">Whether it's a brand new webOS or an older Netcast system, this extension is compatible with all LG Smart TVs. No extra hardware required.</p>
         
         <div class="badges">
-            <span class="badge">UDAP 2.0 Támogatás</span>
-            <span class="badge">SSAP (webOS) Támogatás</span>
-            <span class="badge">13,000+ Aktív Felhasználó</span>
+            <span class="badge">UDAP 2.0 Support</span>
+            <span class="badge">SSAP (webOS) Support</span>
+            <span class="badge">13,000+ Daily Active Users</span>
         </div>
 
-        <a href="#" class="btn">Hozzáadás a Chrome-hoz - Ingyenes</a>
+        <div class="action-buttons">
+            <a href="#" class="btn">Add to Chrome - It's Free</a>
+        </div>
     </header>
 
     <div class="container grid-container">
-        <!-- Alap funkciók -->
+        <!-- Core Features -->
         <div class="features-list">
             <div class="feature-card">
                 <div class="feature-icon">⚡</div>
                 <div class="feature-content">
-                    <h3>Villámgyors Kapcsolat</h3>
-                    <p>Közvetlenül a helyi hálózaton keresztül kommunikál a tévéddel, minimális késleltetéssel az összes hivatalos LG protokoll használatával.</p>
+                    <h3>Lightning Fast Connection</h3>
+                    <p>Communicates directly over your local network with minimal latency using the official LG protocols.</p>
                 </div>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🔒</div>
                 <div class="feature-content">
-                    <h3>Biztonságos Párosítás</h3>
-                    <p>Egyszerű PIN-kódos (AuthKey) hitelesítés. A hálózati adataid biztonságban vannak, és soha nem hagyják el a gépedet.</p>
+                    <h3>Secure Pairing</h3>
+                    <p>Simple PIN (AuthKey) authentication. Your network data is completely safe and never leaves your machine.</p>
                 </div>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">⌨️</div>
                 <div class="feature-content">
-                    <h3>Alapvető Vezérlés</h3>
-                    <p>Hangerő szabályozása, némítás, navigációs nyilak és OK gomb használata – minden alapfunkció azonnal elérhető ingyen.</p>
+                    <h3>Essential Controls</h3>
+                    <p>Volume control, mute, navigation arrows, and OK button – all basic functionality available completely free.</p>
                 </div>
             </div>
         </div>
 
         <!-- Premium Card -->
         <div class="premium-card">
-            <div class="premium-badge">Pro Verzió</div>
-            <h3>Emeld a szintet!</h3>
+            <div class="premium-badge">Pro Version</div>
+            <h3>Level Up Your Experience!</h3>
             <ul class="premium-features">
-                <li><strong>Több TV kezelése:</strong> Csatlakoztass és válts egy kattintással a hálózaton lévő tévék között.</li>
-                <li><strong>Csatornalista:</strong> Böngéssz és válts csatornát közvetlenül a kiegészítő legördülő listájából.</li>
-                <li><strong>Alkalmazások indítása:</strong> Netflix, YouTube, Spotify? Indítsd el őket egyetlen gombnyomással.</li>
-                <li><strong>Magic Remote:</strong> Teljes egérmutató irányítás és billentyűzet használata (webOS esetén).</li>
+                <li><strong>Manage Multiple TVs:</strong> Connect and switch between different TVs on your network with a single click.</li>
+                <li><strong>Channel List:</strong> Browse and switch channels directly from a convenient dropdown list.</li>
+                <li><strong>Launch Apps:</strong> Netflix, YouTube, Spotify? Launch your favorite apps instantly.</li>
+                <li><strong>Magic Remote:</strong> Full mouse pointer control and keyboard typing support (for webOS models).</li>
             </ul>
-            <a href="#" class="btn-premium">Frissítés Pro Verzióra</a>
+            <a href="#" class="btn-premium">Upgrade to Pro</a>
         </div>
     </div>
 
     <!-- Roadmap -->
     <section class="container roadmap">
-        <h2>Hamarosan Érkezik (Tervezett Funkciók)</h2>
+        <h2>Coming Soon (Roadmap)</h2>
         <div class="roadmap-grid">
             <div class="roadmap-item">
                 <span>⭐</span>
-                <strong>Kedvencek</strong><br>Saját lista a leggyakrabban használt csatornákból és appokból.
+                <strong>Favorites</strong><br>Custom list for your most frequently used channels and applications.
             </div>
             <div class="roadmap-item">
                 <span>🤖</span>
-                <strong>Automatizálás</strong><br>Makrók létrehozása (pl. "Mozi mód": TV be + Házimozi + Netflix indítása).
+                <strong>Automation</strong><br>Create macros (e.g., "Movie mode": Turn on TV + Home Theater + Launch Netflix).
             </div>
             <div class="roadmap-item">
                 <span>🎨</span>
-                <strong>Testreszabhatóság</strong><br>A gombok elrendezésének és a felület kinézetének teljes átszabása.
+                <strong>Customization</strong><br>Fully customize your button layouts and interface appearance.
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>Készítette: <strong>A Te Neved</strong> | Ez egy független projekt, hivatalosan nem kapcsolódik az LG Electronics-hoz.</p>
+            <p>Created by: <strong>Your Name</strong> | This is an independent project and is not officially affiliated with LG Electronics.</p>
             <p style="margin-top: 15px;">
                 <a href="#">GitHub Repo</a> &nbsp;|&nbsp; 
-                <a href="#">Adatvédelmi Tájékoztató</a> &nbsp;|&nbsp; 
-                <a href="#">Kapcsolat</a>
+                <a href="#">Privacy Policy</a> &nbsp;|&nbsp; 
+                <a href="#">Contact</a>
             </p>
         </div>
     </footer>
