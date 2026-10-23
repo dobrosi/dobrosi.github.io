@@ -1,1 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart LG TV Remote - Chrome Extension</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #ef4444; 
+            --accent-hover: #dc2626;
+            --card-bg: #1e293b;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 100px 20px 60px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #f8fafc, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .stats {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid #334155;
+            border-bottom: 1px solid #334155;
+            margin-bottom: 80px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="container">
+        <h1>LG TV Smart Remote</h1>
+        <p class="subtitle">Control your older (Netcast) LG Smart TV conveniently, straight from your Google Chrome browser. No extra hardware required.</p>
+        <a href="#" class="btn">Add to Chrome - It's Free</a>
+        
+        <div style="margin-top: 50px;">
+            <!-- <img src="screenshot.png" alt="Extension Screenshot" style="max-width: 100%; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);"> -->
+        </div>
+    </header>
+
+    <div class="stats container">
+        <div class="stat-number">13,000+</div>
+        <div class="stat-label">Daily Active Users</div>
+    </div>
+
+    <section class="container features">
+        <div class="feature-card">
+            <div class="feature-icon">🚀</div>
+            <h3>Lightning Fast UDAP 2.0</h3>
+            <p>Communicates directly with your TV over the local network with minimal latency using the official LG protocol.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Secure Pairing</h3>
+            <p>Simple, one-time PIN authentication (AuthKey). Your passwords and data never leave your local network.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⌨️</div>
+            <h3>Total Control</h3>
+            <p>Volume, channel changing, mute, directional keys, and app launching – all just a click away from your browser's toolbar.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Created by: <strong>Your Name</strong> | Not officially affiliated with LG Electronics.</p>
+            <p style="margin-top: 10px;">
+                <a href="#">GitHub Project</a> | 
+                <a href="#">Privacy Policy</a>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
