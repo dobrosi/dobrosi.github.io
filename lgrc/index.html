@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +12,8 @@
             --text-muted: #94a3b8;
             --accent: #ef4444; 
             --accent-hover: #dc2626;
+            --premium: #8b5cf6; /* Lila prémium szín */
+            --premium-hover: #7c3aed;
             --card-bg: #1e293b;
         }
 
@@ -34,15 +36,29 @@
             padding: 0 20px;
         }
 
+        /* Header */
         header {
             text-align: center;
-            padding: 100px 20px 60px;
+            padding: 80px 20px 60px;
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .lg-logo {
+            height: 40px;
+            filter: brightness(0) invert(1); /* Fehérré teszi a logót sötét módban */
         }
 
         h1 {
             font-size: 3.5rem;
             font-weight: 800;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background: linear-gradient(90deg, #f8fafc, #94a3b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -51,8 +67,24 @@
         .subtitle {
             font-size: 1.25rem;
             color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 40px;
+            max-width: 650px;
+            margin: 0 auto 30px;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .badge {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
         }
 
         .btn {
@@ -73,69 +105,168 @@
             transform: translateY(-2px);
         }
 
-        .stats {
-            text-align: center;
-            padding: 40px 0;
-            border-top: 1px solid #334155;
-            border-bottom: 1px solid #334155;
-            margin-bottom: 80px;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--accent);
-        }
-
-        .stat-label {
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-
-        .features {
+        /* Layout for Features & Premium */
+        .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: 1fr;
+            gap: 40px;
             margin-bottom: 80px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-container {
+                grid-template-columns: 3fr 2fr;
+            }
+        }
+
+        /* General Features */
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .feature-card {
             background-color: var(--card-bg);
-            padding: 30px;
+            padding: 25px;
             border-radius: 12px;
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
         }
 
         .feature-icon {
             font-size: 2rem;
-            margin-bottom: 15px;
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
         }
 
-        .feature-card h3 {
-            margin-bottom: 15px;
-            font-size: 1.3rem;
+        .feature-content h3 {
+            margin-bottom: 8px;
+            font-size: 1.2rem;
         }
 
-        .feature-card p {
+        .feature-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Premium Card */
+        .premium-card {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border: 2px solid var(--premium);
+            padding: 35px 25px;
+            border-radius: 16px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.15);
+        }
+
+        .premium-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--premium);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .premium-card h3 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+
+        .premium-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .premium-features li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #e2e8f0;
+        }
+
+        .premium-features li::before {
+            content: "✓";
+            color: var(--premium);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .btn-premium {
+            display: block;
+            text-align: center;
+            background-color: var(--premium);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-premium:hover {
+            background-color: var(--premium-hover);
+        }
+
+        /* Roadmap */
+        .roadmap {
+            background-color: rgba(30, 41, 59, 0.5);
+            padding: 50px 20px;
+            border-radius: 16px;
+            margin-bottom: 80px;
+            text-align: center;
+            border: 1px dashed #334155;
+        }
+
+        .roadmap h2 {
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .roadmap-item {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
             color: var(--text-muted);
         }
 
+        .roadmap-item span {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
         footer {
             text-align: center;
             padding: 40px 20px;
             color: var(--text-muted);
             font-size: 0.9rem;
+            border-top: 1px solid #334155;
         }
 
         footer a {
-            color: var(--accent);
+            color: var(--text-main);
             text-decoration: none;
         }
     </style>
@@ -143,44 +274,90 @@
 <body>
 
     <header class="container">
-        <h1>LG TV Smart Remote</h1>
-        <p class="subtitle">Control your older (Netcast) LG Smart TV conveniently, straight from your Google Chrome browser. No extra hardware required.</p>
-        <a href="#" class="btn">Add to Chrome - It's Free</a>
-        
-        <div style="margin-top: 50px;">
-            <!-- <img src="screenshot.png" alt="Extension Screenshot" style="max-width: 100%; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);"> -->
+        <div class="logo-container">
+            <!-- Nyilvános URL az LG logóhoz, automatikusan fehérre van filterezve a CSS-ben -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/LG_logo_%282015%29.svg" alt="LG Logo" class="lg-logo">
+            <span style="font-size: 1.5rem; font-weight: 300; color: #94a3b8;">| Smart Remote</span>
         </div>
+        
+        <h1>Vezéreld a tévédet a böngészőből</h1>
+        <p class="subtitle">Legyen szó vadonatúj webOS vagy régebbi Netcast rendszerről, ez a bővítmény minden LG okostévével kompatibilis. Nincs szükség extra hardverre.</p>
+        
+        <div class="badges">
+            <span class="badge">UDAP 2.0 Támogatás</span>
+            <span class="badge">SSAP (webOS) Támogatás</span>
+            <span class="badge">13,000+ Aktív Felhasználó</span>
+        </div>
+
+        <a href="#" class="btn">Hozzáadás a Chrome-hoz - Ingyenes</a>
     </header>
 
-    <div class="stats container">
-        <div class="stat-number">13,000+</div>
-        <div class="stat-label">Daily Active Users</div>
+    <div class="container grid-container">
+        <!-- Alap funkciók -->
+        <div class="features-list">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-content">
+                    <h3>Villámgyors Kapcsolat</h3>
+                    <p>Közvetlenül a helyi hálózaton keresztül kommunikál a tévéddel, minimális késleltetéssel az összes hivatalos LG protokoll használatával.</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-content">
+                    <h3>Biztonságos Párosítás</h3>
+                    <p>Egyszerű PIN-kódos (AuthKey) hitelesítés. A hálózati adataid biztonságban vannak, és soha nem hagyják el a gépedet.</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⌨️</div>
+                <div class="feature-content">
+                    <h3>Alapvető Vezérlés</h3>
+                    <p>Hangerő szabályozása, némítás, navigációs nyilak és OK gomb használata – minden alapfunkció azonnal elérhető ingyen.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium Card -->
+        <div class="premium-card">
+            <div class="premium-badge">Pro Verzió</div>
+            <h3>Emeld a szintet!</h3>
+            <ul class="premium-features">
+                <li><strong>Több TV kezelése:</strong> Csatlakoztass és válts egy kattintással a hálózaton lévő tévék között.</li>
+                <li><strong>Csatornalista:</strong> Böngéssz és válts csatornát közvetlenül a kiegészítő legördülő listájából.</li>
+                <li><strong>Alkalmazások indítása:</strong> Netflix, YouTube, Spotify? Indítsd el őket egyetlen gombnyomással.</li>
+                <li><strong>Magic Remote:</strong> Teljes egérmutató irányítás és billentyűzet használata (webOS esetén).</li>
+            </ul>
+            <a href="#" class="btn-premium">Frissítés Pro Verzióra</a>
+        </div>
     </div>
 
-    <section class="container features">
-        <div class="feature-card">
-            <div class="feature-icon">🚀</div>
-            <h3>Lightning Fast UDAP 2.0</h3>
-            <p>Communicates directly with your TV over the local network with minimal latency using the official LG protocol.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">🔒</div>
-            <h3>Secure Pairing</h3>
-            <p>Simple, one-time PIN authentication (AuthKey). Your passwords and data never leave your local network.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">⌨️</div>
-            <h3>Total Control</h3>
-            <p>Volume, channel changing, mute, directional keys, and app launching – all just a click away from your browser's toolbar.</p>
+    <!-- Roadmap -->
+    <section class="container roadmap">
+        <h2>Hamarosan Érkezik (Tervezett Funkciók)</h2>
+        <div class="roadmap-grid">
+            <div class="roadmap-item">
+                <span>⭐</span>
+                <strong>Kedvencek</strong><br>Saját lista a leggyakrabban használt csatornákból és appokból.
+            </div>
+            <div class="roadmap-item">
+                <span>🤖</span>
+                <strong>Automatizálás</strong><br>Makrók létrehozása (pl. "Mozi mód": TV be + Házimozi + Netflix indítása).
+            </div>
+            <div class="roadmap-item">
+                <span>🎨</span>
+                <strong>Testreszabhatóság</strong><br>A gombok elrendezésének és a felület kinézetének teljes átszabása.
+            </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>Created by: <strong>Your Name</strong> | Not officially affiliated with LG Electronics.</p>
-            <p style="margin-top: 10px;">
-                <a href="#">GitHub Project</a> | 
-                <a href="#">Privacy Policy</a>
+            <p>Készítette: <strong>A Te Neved</strong> | Ez egy független projekt, hivatalosan nem kapcsolódik az LG Electronics-hoz.</p>
+            <p style="margin-top: 15px;">
+                <a href="#">GitHub Repo</a> &nbsp;|&nbsp; 
+                <a href="#">Adatvédelmi Tájékoztató</a> &nbsp;|&nbsp; 
+                <a href="#">Kapcsolat</a>
             </p>
         </div>
     </footer>
