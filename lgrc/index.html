@@ -383,3 +383,326 @@
 
 </body>
 </html>
+
+
+
+
+
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart LG TV Remote Controller - Chrome Extension</title>
+
+    <style>
+        :root[data-bs-theme="dark"] {
+            --bs-body-bg: #0f172a;
+            --bs-body-color: #f8fafc;
+            --bs-secondary-color: #94a3b8;
+            --bs-border-color: #334155;
+
+            --accent: #ef4444;
+            --accent-hover: #dc2626;
+            --premium: #ffc107;
+            --premium-hover: #e0a800;
+            --premium-text: #1a1a1a;
+            --card-bg: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Typography */
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #f8fafc, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Cards */
+        .custom-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .custom-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .custom-card.pro {
+            border: 2px solid var(--premium);
+            box-shadow: 0 10px 30px rgba(255, 193, 7, 0.1);
+        }
+
+        .premium-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--premium);
+            color: var(--premium-text);
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            z-index: 1;
+        }
+
+        /*
+           SAJÁT GOMBOK (Függetlenítve a Bootstrap-től)
+        */
+        .custom-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        /* Piros gomb (Basic) */
+        .custom-btn-accent {
+            background-color: var(--accent);
+            color: #ffffff !important;
+            font-weight: 600;
+        }
+        .custom-btn-accent:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Sárga teli gomb (Premium) */
+        .custom-btn-premium {
+            background-color: var(--premium);
+            color: var(--premium-text) !important;
+            font-weight: 700;
+            border-color: var(--premium);
+        }
+        .custom-btn-premium:hover {
+            background-color: var(--premium-hover);
+            border-color: var(--premium-hover);
+        }
+
+        /* Halvány sárga gomb (Trial) */
+        .custom-btn-outline {
+            background-color: rgba(255, 193, 7, 0.1); /* Halvány sárga háttér */
+            color: var(--premium) !important;
+            font-weight: 700;
+            border-color: var(--premium);
+        }
+        .custom-btn-outline:hover {
+            background-color: var(--premium);
+            color: var(--premium-text) !important;
+        }
+
+        /* Lists */
+        .pricing-list { list-style: none; padding: 0; }
+        .pricing-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: var(--bs-secondary-color);
+        }
+        .pricing-list li::before {
+            content: "✓";
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+        .custom-card.pro .pricing-list li::before { color: var(--premium); }
+        .pricing-list li strong { color: var(--bs-body-color); }
+
+        .pricing-price { font-size: 2.5rem; font-weight: 800; }
+        .pricing-price span { font-size: 1rem; color: var(--bs-secondary-color); font-weight: normal; }
+
+        /* Roadmap */
+        .roadmap-container {
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px dashed var(--bs-border-color);
+        }
+        .roadmap-icon { font-size: 2rem; display: block; margin-bottom: 10px; }
+
+        /* Google Login Button (Saját stílus, Bootstrap mentes) */
+        .btn-google-dark {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 10px 20px;
+            background-color: #202124;
+            color: #ffffff !important;
+            border: 1px solid #5f6368;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-google-dark:hover {
+            background-color: #303134;
+            border-color: #5f6368;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+        }
+
+        /* Kiemelt fókusz stílus, hogy egyértelmű legyen, mikor van rajta az Autofocus */
+        .btn-google-dark:focus {
+            background-color: #303134;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(66, 133, 244, 0.6) !important;
+            border-color: #4285F4;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="container text-center py-5 mt-4">
+    <div class="mb-3">
+        <span class="fs-4 fw-light text-secondary">Smart Remote</span>
+    </div>
+    <h1 class="hero-title mb-3">Smart LG TV Remote Controller</h1>
+</header>
+
+<!-- Overview & Pricing Section -->
+<section class="container mb-5 pb-4">
+    <div class="text-center mb-5">
+        <h2 class="fs-1 fw-bold mb-3">Overview & Pricing</h2>
+        <p class="text-secondary fs-5 mx-auto" style="max-width: 750px;">
+            Smart LG TV Remote Controller is designed to give you seamless, lag-free control over your LG Smart TV right from your browser. Choose the plan that fits your needs.
+        </p>
+    </div>
+
+    <!-- Bootstrap Grid for Pricing Cards -->
+    <div class="row justify-content-center g-4">
+
+        <!-- Basic Plan -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="custom-card h-100 p-4 d-flex flex-column">
+                <h3 class="fs-4 mb-2">Basic</h3>
+                <div class="pricing-price mb-4">Free</div>
+                <ul class="pricing-list flex-grow-1">
+                    <li><strong>Essential&nbsp;Controls</strong></li>
+                    <li>Vol, Mute, Prog, Media, D-Pad</li>
+                    <li>Lightning Fast Connection</li>
+                    <li>Secure Pairing Authentication</li>
+                    <li>Ad-free experience</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Premium Plan -->
+        <div class="col-12 col-md-6 col-lg-4 position-relative">
+            <div class="premium-badge">Most Popular</div>
+            <div class="custom-card pro h-100 p-4 d-flex flex-column">
+                <h3 class="fs-4 mb-2" style="color: var(--premium);">Premium Version</h3>
+                <div class="pricing-price mb-4">$4.99<span> / year</span></div>
+                <ul class="pricing-list flex-grow-1">
+                    <li><strong>Everything in Basic, plus:</strong></li>
+                    <li>Authenticated usage</li>
+                    <li>Manage Multiple TVs</li>
+                    <li>Direct Channel Selection</li>
+                    <li>Launch Favorite Apps instantly</li>
+                    <li>Magic Remote (Mouse & Keyboard)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Premium Lifetime Plan -->
+        <div class="col-12 col-md-6 col-lg-4 position-relative">
+            <div class="premium-badge">Best Value</div>
+            <div class="custom-card pro h-100 p-4 d-flex flex-column">
+                <h3 class="fs-4 mb-2" style="color: var(--premium);">Premium Lifetime</h3>
+                <div class="pricing-price mb-4">$9.99<span> / lifetime</span></div>
+                <ul class="pricing-list flex-grow-1">
+                    <li><strong>Everything in Premium, forever</strong></li>
+                    <li>Pay once, use forever</li>
+                    <li>All future updates included</li>
+                    <li>Priority support</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Roadmap -->
+<section class="container mb-5 pb-5">
+    <div class="roadmap-container rounded-4 p-5 text-center">
+        <h2 class="fs-1 fw-bold mb-5">Coming Soon (Roadmap)</h2>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 text-start">
+            <div class="col">
+                <div class="custom-card h-100 p-4 text-center">
+                    <span class="roadmap-icon">⭐</span>
+                    <strong>Favorites</strong>
+                    <p class="text-secondary small mt-2 mb-0">Custom list for your most frequently used channels and applications.</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="custom-card h-100 p-4 text-center">
+                    <span class="roadmap-icon">🤖</span>
+                    <strong>Automation</strong>
+                    <p class="text-secondary small mt-2 mb-0">Create macros (e.g., "Movie mode": Turn on TV + Home Theater + Launch Netflix).</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="custom-card h-100 p-4 text-center">
+                    <span class="roadmap-icon">🎨</span>
+                    <strong>Customization</strong>
+                    <p class="text-secondary small mt-2 mb-0">Fully customize your button layouts and interface appearance.</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="custom-card h-100 p-4 text-center">
+                    <span class="roadmap-icon">📱</span>
+                    <strong>Extended Device Support</strong>
+                    <p class="text-secondary small mt-2 mb-0">Connection and control for more and more various smart devices in your home.</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="custom-card h-100 p-4 text-center">
+                    <span class="roadmap-icon">✨</span>
+                    <strong>AI Assistant</strong>
+                    <p class="text-secondary small mt-2 mb-0">Control your TV using natural language and get smart viewing recommendations.</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="custom-card h-100 p-4 text-center">
+                    <span class="roadmap-icon">☁️</span>
+                    <strong>Cloud Sync</strong>
+                    <p class="text-secondary small mt-2 mb-0">Securely synchronize your configurations, macros, and favorites across all your Chrome browsers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="container text-center py-4 border-top" style="border-color: var(--bs-border-color) !important;">
+    <p class="text-secondary mb-2">Created by: <a href="mailto:dobrosi@gmail.com" class="text-light text-decoration-none fw-bold">András, Dobrosi</a> | This is an independent project and is not officially affiliated with LG Electronics.</p>
+    <div>
+        <p style="margin-top: 15px;">
+            <a href="privacy_policy.html">Privacy Policy</a> &nbsp;|&nbsp; 
+            <a href="terms_and_conditions.html">Terms and Conditions</a> &nbsp;|&nbsp; 
+            <a href="mailto: dobrosi@gmail.com">Contact</a>
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>
